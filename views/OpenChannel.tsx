@@ -451,33 +451,6 @@ export default class OpenChannel extends React.Component<
                             }}
                             disabled={loading}
                         />
-                        <Tab.Item
-                            title={localeString(
-                                'views.OpenChannel.connectPeer'
-                            )}
-                            titleStyle={{
-                                ...styles.tabTitleStyle,
-                                color: themeColor('text')
-                            }}
-                            containerStyle={{
-                                backgroundColor: themeColor('secondary')
-                            }}
-                            disabled={loading}
-                        />
-                        {BackendUtils.supportsPeers() && (
-                            <Tab.Item
-                                title={localeString(
-                                    'views.OpenChannel.managePeers'
-                                )}
-                                titleStyle={{
-                                    ...styles.tabTitleStyle,
-                                    color: themeColor('text')
-                                }}
-                                containerStyle={{
-                                    backgroundColor: themeColor('secondary')
-                                }}
-                            />
-                        )}
                     </Tab>
 
                     {!!suggestImport && (
@@ -534,12 +507,12 @@ export default class OpenChannel extends React.Component<
                         )}
                         {(errorMsgPeer ||
                             errorMsgChannel ||
-                            errorDisconnectPeer) && (
+                            errorDisconnectPeer ||
+                            errorListPeers) && (
                             <ErrorMessage
                                 message={
                                     errorMsgChannel ||
                                     errorMsgPeer ||
-                                    errorDisconnectPeer ||
                                     localeString('general.error')
                                 }
                             />
@@ -766,39 +739,6 @@ export default class OpenChannel extends React.Component<
                                 {(connectingToPeer || openingChannel) && (
                                     <LightningIndicator />
                                 )}
-                                {peerSuccess && (
-                                    <SuccessMessage
-                                        message={localeString(
-                                            'views.OpenChannel.peerSuccess'
-                                        )}
-                                    />
-                                )}
-                                {channelSuccess && (
-                                    <SuccessMessage
-                                        message={
-                                            additionalChannels.length > 0
-                                                ? localeString(
-                                                      'views.OpenChannel.channelsSuccess'
-                                                  )
-                                                : localeString(
-                                                      'views.OpenChannel.channelSuccess'
-                                                  )
-                                        }
-                                    />
-                                )}
-                                {(errorMsgPeer ||
-                                    errorMsgChannel ||
-                                    errorDisconnectPeer ||
-                                    errorListPeers) && (
-                                    <ErrorMessage
-                                        message={
-                                            errorMsgChannel ||
-                                            errorMsgPeer ||
-                                            localeString('general.error')
-                                        }
-                                    />
-                                )}
-
                                 <DropdownSetting
                                     title={
                                         connectPeerOnly
@@ -1447,7 +1387,6 @@ export default class OpenChannel extends React.Component<
                                         }
                                     />
                                 </View>
-
                                 <View style={styles.button}>
                                     <Button
                                         title={localeString(
