@@ -4,29 +4,29 @@ import { inject, observer } from 'mobx-react';
 import { Route } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import BalanceStore from '../../stores/BalanceStore';
-import InvoicesStore from '../../stores/InvoicesStore';
-import ModalStore from '../../stores/ModalStore';
-import NodeInfoStore from '../../stores/NodeInfoStore';
-import SettingsStore from '../../stores/SettingsStore';
-import TransactionsStore from '../../stores/TransactionsStore';
-import SweepStore from '../../stores/SweepStore';
+import BalanceStore from '../stores/BalanceStore';
+import InvoicesStore from '../stores/InvoicesStore';
+import ModalStore from '../stores/ModalStore';
+import NodeInfoStore from '../stores/NodeInfoStore';
+import SettingsStore from '../stores/SettingsStore';
+import TransactionsStore from '../stores/TransactionsStore';
+import SweepStore from '../stores/SweepStore';
 
-import Button from '../../components/Button';
-import { ErrorMessage } from '../../components/SuccessErrorMessage';
-import Header from '../../components/Header';
-import Screen from '../../components/Screen';
-import TextInput from '../../components/TextInput';
-import LoadingIndicator from '../../components/LoadingIndicator';
-import OnchainFeeInput from '../../components/OnchainFeeInput';
+import Button from '../components/Button';
+import { ErrorMessage } from '../components/SuccessErrorMessage';
+import Header from '../components/Header';
+import Screen from '../components/Screen';
+import TextInput from '../components/TextInput';
+import LoadingIndicator from '../components/LoadingIndicator';
+import OnchainFeeInput from '../components/OnchainFeeInput';
 
-import { localeString } from '../../utils/LocaleUtils';
-import { themeColor } from '../../utils/ThemeUtils';
+import { localeString } from '../utils/LocaleUtils';
+import { themeColor } from '../utils/ThemeUtils';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import Scan from '../../assets/images/SVG/Scan.svg';
-import ShowHideToggle from '../../components/ShowHideToggle';
-import wifUtils from '../../utils/WIFUtils';
-import AddressUtils from '../../utils/AddressUtils';
+import Scan from '../assets/images/SVG/Scan.svg';
+import ShowHideToggle from '../components/ShowHideToggle';
+import wifUtils from '../utils/WIFUtils';
+import AddressUtils from '../utils/AddressUtils';
 
 interface SweepProps {
     exitSetup: any;
@@ -262,7 +262,7 @@ export default class WIFSweeper extends React.Component<
                                                 value:
                                                     SweepStore.onChainBalance.toString() ??
                                                     '10',
-                                                expiry: '3600'
+                                                expirySeconds: '3600'
                                             }
                                         );
                                         if (InvoicesStore.onChainAddress) {
