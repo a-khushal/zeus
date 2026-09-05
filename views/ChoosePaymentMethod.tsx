@@ -27,6 +27,7 @@ import { localeString } from '../utils/LocaleUtils';
 import { themeColor } from '../utils/ThemeUtils';
 import BackendUtils from '../utils/BackendUtils';
 import Invoice from '../models/Invoice';
+import { BrantaVerification } from '../stores/BrantaStore';
 
 interface RouteParams {
     value: string;
@@ -36,6 +37,7 @@ interface RouteParams {
     offer: string;
     clinkNoffer: string;
     lnurlParams: LNURLWithdrawParams | undefined;
+    brantaVerification?: BrantaVerification | null;
 }
 
 interface ChoosePaymentMethodProps {
@@ -56,6 +58,7 @@ interface ChoosePaymentMethodState {
     clinkNoffer: string;
     lnurlParams: LNURLWithdrawParams | undefined;
     feeRate: string;
+    brantaVerification: BrantaVerification | null;
 }
 
 @inject('BalanceStore', 'CashuStore', 'UTXOsStore', 'InvoicesStore')
@@ -76,7 +79,8 @@ export default class ChoosePaymentMethod extends React.Component<
         offer: '',
         clinkNoffer: '',
         lnurlParams: undefined,
-        feeRate: ''
+        feeRate: '',
+        brantaVerification: null
     };
 
     componentDidMount() {
@@ -121,7 +125,8 @@ export default class ChoosePaymentMethod extends React.Component<
             lightningAddress,
             offer,
             clinkNoffer,
-            lnurlParams
+            lnurlParams,
+            brantaVerification
         } = params ?? {};
 
         const resolvedSatAmount =
@@ -137,7 +142,8 @@ export default class ChoosePaymentMethod extends React.Component<
             ...(lightningAddress && { lightningAddress }),
             ...(offer && { offer }),
             ...(clinkNoffer && { clinkNoffer }),
-            ...(lnurlParams && { lnurlParams })
+            ...(lnurlParams && { lnurlParams }),
+            ...(brantaVerification !== undefined && { brantaVerification })
         };
         if (Object.keys(stateUpdate).length > 0) {
             this.setState((prev) => ({ ...prev, ...stateUpdate }));
@@ -234,7 +240,8 @@ export default class ChoosePaymentMethod extends React.Component<
             offer,
             clinkNoffer,
             lnurlParams,
-            feeRate
+            feeRate,
+            brantaVerification
         } = this.state;
 
         const { accounts } = UTXOsStore!;
@@ -315,6 +322,7 @@ export default class ChoosePaymentMethod extends React.Component<
                     offer={offer}
                     clinkNoffer={clinkNoffer}
                     lnurlParams={lnurlParams}
+                    brantaVerification={brantaVerification}
                     // balance data
                     lightningBalance={lightningBalance}
                     onchainBalance={totalBlockchainBalance}
